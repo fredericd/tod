@@ -1,0 +1,118 @@
+#!/usr/bin/perl
+
+
+
+package Main;
+
+use Modern::Perl;
+use utf8;
+use FindBin qw( $Bin );
+use lib "$Bin/../lib";
+use ElasticSearch;
+use MARC::Moose::Record;
+use MARC::Moose::Reader::File::Iso2709;
+use YAML;
+use JSON;
+use Tod;
+use Tod::Biblio::Indexer::Formater;
+use Try::Tiny;
+
+
+binmode(STDOUT, ':encoding(utf8)');
+
+my $tod = Tod->new();
+
+
+sub index {
+    my $reader = MARC::Moose::Reader::File::Iso2709->new(
+        file => 'part01.utf8' );
+    my $formater = Tod::Biblio::Indexer::Formater->new( tod => $tod );
+    my $i = 0;
+    my $offset = 10_000;
+    my $max = 210_000;
+    while ( my $record = $reader->read() ) {
+        $i++;
+        say $i unless $i % 1000;
+        last if $i == $max;
+        next if $i < $offset;
+        #next;
+        #print $record->as('Text');
+        my $id = $record->field('001');
+        $id = $id->value if ref($id) eq 'MARC::Moose::Field::Control';
+        try {
+            $tod->es->index(
+                index => 'loc',
+                type  => 'biblio',
+                id    => $id,
+                data  => $formater->format($record),
+            );
+        } catch {
+            say "Skip $id";
+        };
+        #exit if $i > 10000;
+    }
+    say $i;
+}
+
+
+sub search {
+    my $id = 1;
+
+    my $res = $tod->es->search(
+        index => 'loc',
+        type => 'biblio',
+        query => {
+            text => { language => 'fre' }
+        },
+        facets => $tod->c->{facets},
+        scroll => '5m',
+        size => 50,
+    );
+    say "Total: ", $res->{hits}{total};
+    my $pos = 1;
+    while (1) {
+        my $hits = $res->{hits}{hits};
+        last unless @$hits;
+        say Dump($res);
+        exit;
+        for my $hit ( @$hits ) {
+            #my $record = MARC::Moose::Record::new_from($hit->{_source}->{iso},'ISO2709');
+            #say $record->as('Text');
+            my $source = $hit->{_source};
+            say "$pos: ", $hit->{_id}, " ", join(' ', @{$source->{245}});
+            #my $record = MARC::Moose::Record::new_from($hit->{_source}{iso},'iso2709');
+            #print $record->as('Text');
+            $pos++;
+        }
+        say "_scroll_id : ", $res->{_scroll_id};
+        $res = $tod->es->scroll(
+            scroll_id   => $res->{_scroll_id},
+            scroll      => '5m',
+        );
+    }
+}
+
+
+sub init {
+    try {
+        $tod->es->delete_index(
+            index => 'loc',
+        );
+    } catch {
+        say "'loc' index deletion impossible";
+    };
+    my $indexes = $tod->c->{indexes};
+    for my $index (@$indexes) {
+        say to_json($index, { pretty => 1});
+        say "Create index ", $index->{index};
+        $tod->es->create_index($index);
+    }
+}
+
+given (shift @ARGV || '') {
+    when (/search/) { search(); }
+    when (/index/)  { &index();  }
+    when (/init/)  { init();  }
+}
+
+

@@ -1,0 +1,17 @@
+<h3>Authentification</h3>
+
+<div class="span12">
+  <div class="span5">
+    <form class="form-inline" method="post" action="/login">
+      <input name="password" type="password" class="input-medium" placeholder="Mot de passe">
+      <button type="submit" class="btn">Ok</button>
+    </form>
+  </div>
+  <div class="span3 text-error">
+  [% IF failed %]
+      Mot de passe invalide.
+  [% END %]
+  </div>
+</div>
+
+

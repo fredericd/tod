@@ -1,0 +1,16 @@
+
+<div id="searchview" class="row navbar-fixed-top">
+ <div class="offset2">
+  <form id="search" name="search" class="form-search">
+    <input id="query" type="text" class="input-large search-query">
+    <button type="submit" class="button">Search</button>
+    <button type="cancel" class="button">Cancel</button>
+  </form>
+ </div>
+</div>
+
+<div id="resultview" class="row">
+  <div class="span3" id="facet"></div>
+  <div class="span9" id="result"></div>
+</div>
+

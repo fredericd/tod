@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <title>Search Engine</title>
+ <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <link href="/css//tod.css" rel="stylesheet">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+ <script src="/bootstrap/js/bootstrap.min.js"></script>
+ <script src="/js/jquery.endless-scroll.js"></script>
+ <script src="/js/tod.js"></script>
+ <style>
+  body {
+   padding-top: 40px; /* 60px to make the container go all the way to the
+bottom of the topbar */
+  }
+  .sidebar-nav {
+     padding: 9px 0;
+  }
+ </style>
+ <link href="/bootstrap/js/bootstrap-responsive.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="/">Tod</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li[% IF request.path == '/' %] class="active"[% END %]><a href="/">Home</a></li>
+            <li[% IF request.path.match('^/pactol') %] class="active"[% END %]><a href="/pactol">Pactols</a></li>
+            <li[% IF request.path.match('^/about') %] class="active"[% END %]><a href="/about">A propos</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+[% content %]
+  </div>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/bootstrap/js/bootstrap-transition.js"></script>
+  <script src="/bootstrap/js/bootstrap-alert.js"></script>
+  <script src="/bootstrap/js/bootstrap-modal.js"></script>
+  <!-- <script src="/bootstrap/js/bootstrap-dropdown.js"></script> -->
+  <script src="/bootstrap/js/bootstrap-scrollspy.js"></script>
+  <script src="/bootstrap/js/bootstrap-tab.js"></script>
+  <script src="/bootstrap/js/bootstrap-tooltip.js"></script>
+  <script src="/bootstrap/js/bootstrap-popover.js"></script>
+  <script src="/bootstrap/js/bootstrap-button.js"></script>
+  <script src="/bootstrap/js/bootstrap-collapse.js"></script>
+  <script src="/bootstrap/js/bootstrap-carousel.js"></script>
+  <script src="/bootstrap/js/bootstrap-typeahead.js"></script>
+  <script src="/bootstrap/js/bootstrap-affix.js"></script>
+
+</body>
+</html>

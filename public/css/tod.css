@@ -1,0 +1,33 @@
+
+#searchview {
+  padding-top: 5px;
+}
+div.hit {
+  margin-bottom: 5px;
+}
+#resultview tr, td {
+  vertical-align: top;
+  padding-bottom: 5px;
+}
+#resultview tr:hover {
+  background-color: #f0f0f0;
+}
+#resultview td.count {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 3px;
+  width: 50px;
+}
+
+#resultview h4 {
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+#resultview ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+#resultview li {
+  font-size: 12px;
+}
