@@ -4,6 +4,7 @@ var Tod = {
   offset: 0,
   _scroll_id: 0,
   facets: [
+    { field: 'author', label: 'Author' },
     { field: 'subject', label: 'Subject' },
     { field: 'date', label: 'Date' }
   ],
@@ -25,15 +26,15 @@ var Tod = {
             var terms = rs.facets[facet.field].terms;
             for (var i in terms) {
               var term = terms[i];
-              html += '<li><a>' + term.term + '</a> (' + term.count + ')' + '</li>';
+              html += '<li><a>' + term.term + '</a><small>&nbsp;(' + term.count + ')</small></li>';
             }
             html += '</ul></div>'
           }
           $('#facet').html(html);
           html =
-            '<div class="hitscount">Count: ' +
+            '<h4>Count: ' +
             rs.total +
-            '</div>';
+            '</h4>';
           html += '<table>';
           tod.offset = 0;
           for (var i in hits) {
@@ -49,6 +50,7 @@ var Tod = {
           $('#result').html(html);
           tod._scroll_id = rs._scroll_id;
         });
+        tod.register();
         return false;
       });
     });
@@ -74,6 +76,14 @@ var Tod = {
         });
       }
     });
+  },
+  register: function() {
+    console.log('register');
+    $('#facet_author >li >a').click(function(e){
+      console.log('click');
+      e.preventDefault();
+    });
+    console.log('register done');
   }
 };
 Tod.run();

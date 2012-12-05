@@ -20,7 +20,7 @@ div.hit {
 }
 
 #resultview h4 {
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 0px;
 }
 #resultview ul {
@@ -30,4 +30,11 @@ div.hit {
 }
 #resultview li {
   font-size: 12px;
+}
+#resultview li:hover {
+  background: #f0f0f0;
+}
+#result h4 {
+  font-size: 13px;
+  margin-bottom: 5px;
 }

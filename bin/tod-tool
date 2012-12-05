@@ -29,7 +29,7 @@ sub index {
     my $formater = Tod::Biblio::Indexer::Formater->new( tod => $tod );
     my $i = 0;
     my $offset = 10_000;
-    my $max = 210_000;
+    my $max = 2_000_000;
     while ( my $record = $reader->read() ) {
         $i++;
         say $i unless $i % 1000;
