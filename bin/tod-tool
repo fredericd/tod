@@ -109,10 +109,22 @@ sub init {
     }
 }
 
+
+sub test {
+    my $conf = {
+        facets => [
+          { a => 'jj' },
+        ],
+        scrolling => 50
+    };
+    say encode_json($conf);
+}
+
 given (shift @ARGV || '') {
     when (/search/) { search(); }
     when (/index/)  { &index();  }
     when (/init/)  { init();  }
+    when (/test/)  { test();  }
 }
 
 

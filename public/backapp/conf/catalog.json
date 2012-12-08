@@ -1,0 +1,9 @@
+{
+  "facets": [
+    { "field": "author",  "label": "Auteur" },
+    { "field": "subject", "label": "Sujet" },
+    { "field": "date",    "label": "Date" }
+  ],
+  "scrolling": 50
+}
+

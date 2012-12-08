@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <title>Search Engine</title>
+ <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <link href="/css//tod.css" rel="stylesheet">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="offset4">
+        <form id="search" name="search" class="form-search">
+          <input id="query" type="text" class="input-large search-query">
+          <button type="submit" class="button">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="resultview" class="row" style="margin-top: 50px;">
+      <div class="span3" id="facet"></div>
+      <div class="span9" id="result"></div>
+    </div>
+  </div>
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="lib/underscore.js"></script>
+  <script src="lib/backbone-min.js"></script>
+  <script src="app.js"></script>
+  <script src="views.js"></script>
+  <script src="models.js"></script>
+
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-transition.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-alert.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-modal.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-dropdown.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-scrollspy.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-tab.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-tooltip.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-popover.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-button.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-collapse.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-carousel.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-typeahead.js"></script>
+  <script src="lib/bootstrap/js/bootstrap-affix.js"></script>
+
+  <script type="text/template" id="templateFacet">
+    <h4>Limiter la recherche</h4>
+    <% _.each(facets, function(facet) { %>
+      <div id="facet_<%= facet.field %>">
+      <h4><%= facet.label %></h4>
+      <ul>
+      <% _.each(facet.terms, function(term) { %>
+        <li><a><%= term[0] %></a><small> (<%= term[1] %>)</small></li>
+      <% }); %>
+      </ul>
+      </div>
+    <% }); %>
+  </script>
+
+  <script type="text/template" id="templateResultCount">
+    <h4>Count: <%= total %> </h4>
+  </script>
+
+  <script type="text/template" id="templateResult">
+    <table>
+    <% for (var i = offset; i < hits.length; i++) { 
+        hit = hits[i];
+    %>
+      <tr id="<%= hit.id %>">
+      <td class="count"><%= i+1 %>.</td>
+      <td><%= hit.title %></td>
+      </tr>
+    <% } %>
+    </table>
+  </script>
+
+
+</body>
+</html>

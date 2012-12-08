@@ -1,11 +1,3 @@
-
-$(function(){
-
-  var Tod = Backbone.Model.extend({
-
-    //
-
-
 var Tod = {
 
   total: 0,
@@ -22,10 +14,10 @@ var Tod = {
     $(function() {
       $('#search').submit(function() {
         var href = '/search/' + $('#query').val();
-        console.log(href);
         $.get(href, function(rs) {
           var hits = rs.hits;
           tod.total = rs.total;
+
           var html = '';
           for (var i in tod.facets) {
             var facet = tod.facets[i];
@@ -49,10 +41,10 @@ var Tod = {
             var rec = hits[i];
             tod.offset += 1;
             html = html +
-              '<tr id="' + rec.id + '">' +
-              '<td class="count">' + tod.offset + '.</td>' +
-              '<td>' + rec.title + '</td>' +
-              '</tr>';
+                '<tr id="' + rec.id + '">' +
+                '<td class="count">' + tod.offset + '.</td>' +
+                '<td>' + rec.title + '</td>' +
+                '</tr>';
           }
           html += '</table>';
           $('#result').html(html);
