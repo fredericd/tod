@@ -28,6 +28,10 @@ app.Views.result = Backbone.View.extend({
 
   },
 
+  loading: function() {
+    $('#resultloading').show();
+  },
+
   render: function() {
     console.log('view result: render');
     var result = app.models.result;
@@ -40,6 +44,7 @@ app.Views.result = Backbone.View.extend({
       offset: result.offset,
     });
     $('#result').append(template);
+    $('#resultloading').hide();
   },
 
   append: function() {
@@ -50,6 +55,7 @@ app.Views.result = Backbone.View.extend({
       offset: result.offset,
     });
     $('#result').append(template);
+    $('#resultloading').hide();
   }
 });
 

@@ -18,7 +18,6 @@ div.hit {
   padding-right: 3px;
   width: 50px;
 }
-
 #resultview h4 {
   font-size: 13px;
   margin-bottom: 0px;
@@ -37,4 +36,9 @@ div.hit {
 #result h4 {
   font-size: 13px;
   margin-bottom: 5px;
+}
+#resultloading {
+  display: none;
+  margin-top: 30px;
+  margin-bottom: 40px;
 }

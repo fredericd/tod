@@ -74,6 +74,7 @@ app.Models.result = Backbone.Model.extend({
 
   setFromQuery: function(rs) {
     console.log('result setFromQuery');
+    app.views.result.loading();
     this.total = rs.total;
     var hits = rs.hits;
     this.hits = hits;
@@ -87,7 +88,8 @@ app.Models.result = Backbone.Model.extend({
   fetch: function() {
     if ( this.fetching ) { return; }
     console.log("fetch: " + this.total + " -- " + this.offset);
-    if ( this.total == 0 || this.offset == 0 ) { return; }
+    if ( this.total == 0 || this.offset == 0 || this.total == this.offset ) { return; }
+    app.views.result.loading();
     this.fetching = 1;
     var href = '/scroll/' + this._scroll_id;
     var hits = this.hits;
